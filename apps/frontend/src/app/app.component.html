@@ -7,25 +7,32 @@
 
   <dx-data-grid
     [dataSource]="posts"
-    keyExpr="id"
-    [columnAutoWidth]="true"
-    [remoteOperations]="false"
-    [allowColumnReordering]="true"
-    [rowAlternationEnabled]="true"
+    [showRowLines]="true"
     [showBorders]="true"
     [width]="'100%'"
   >
-    <dxo-paging [pageSize]="10"></dxo-paging>
+    <dxo-editing
+      mode="row"
+      [allowDeleting]="true"
+      [useIcons]="true"
+    ></dxo-editing>
 
-    <dxi-column dataField="title" caption="Заголовок"></dxi-column>
-    <dxi-column dataField="body" caption="Текст"></dxi-column>
+    <dxi-column type="buttons" [width]="110">
+      <ng-template dxTemplate="cellTemplate" let-data="data">
+        <dxi-button (click)="deletePost(data.id)" name="delete"></dxi-button>
+      </ng-template>
+    </dxi-column>
 
-    <dxi-column type="buttons">
-      <div>
-        <dxi-button name="delete" (onClick)="deletePost($event)"> </dxi-button>
-      </div>
+    <dxi-column dataField="title">
+      <ng-template dxTemplate="cellTemplate" let-data="data">
+        <div class="custom-cell">{{ data.value }}</div>
+      </ng-template>
+    </dxi-column>
+
+    <dxi-column dataField="body">
+      <ng-template dxTemplate="cellTemplate" let-data="data">
+        <div class="custom-cell">{{ data.value }}</div>
+      </ng-template>
     </dxi-column>
   </dx-data-grid>
-
-
 </div>

@@ -7,7 +7,7 @@ import {
 } from 'devextreme-angular'
 import { FormsModule } from '@angular/forms'
 
-const API_URL = '/api/posts'
+const API_URL = 'http://localhost:3000/api/posts'
 
 @Component({
   selector: 'app-root',
