@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+
+# macOS
+.DS_Store
+
+# WebStorm
+.idea/
+
+# Logs
+npm-debug.log
+yarn-debug.log
