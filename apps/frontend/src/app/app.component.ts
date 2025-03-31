@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core'
-import { HttpClient } from '@angular/common/http'
+import {Component, OnInit} from '@angular/core'
+import {HttpClient} from '@angular/common/http'
 import {
   DxDataGridModule,
   DxButtonModule,
   DxTemplateModule,
 } from 'devextreme-angular'
-import { FormsModule } from '@angular/forms'
+import {FormsModule} from '@angular/forms'
 
 const API_URL = 'http://localhost:3000/api/posts'
 
@@ -23,14 +23,15 @@ export class AppComponent implements OnInit {
     body: '',
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     this.loadPosts()
   }
 
   loadPosts() {
-    this.http.get<any[]>(API_URL).subscribe((data) => (this.posts = data))
+    this.http.get<any[]>(API_URL).subscribe((data: any) => (this.posts = data))
   }
 
   deletePost(event: any) {
@@ -44,11 +45,15 @@ export class AppComponent implements OnInit {
 
   addPost() {
     if (this.newPost.title && this.newPost.body) {
-      const newId = this.posts.length
-        ? this.posts[this.posts.length - 1].id + 1
-        : 1
-      this.posts.push({ ...this.newPost, id: newId })
-      this.newPost = { title: '', body: '' }
+      this.http
+        .post(API_URL, {
+          title: this.newPost.title,
+          body: this.newPost.body,
+          userId: 1,
+        }).subscribe((data: any) => {
+        this.posts.push(data)
+      })
+      this.newPost = {title: '', body: ''}
     }
   }
 }
